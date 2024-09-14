@@ -17,6 +17,10 @@ import android.util.Base64;
 import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import android.app.Activity;
+
 public class MultiSelect extends CordovaPlugin {
 
     private static final int PICK_FILE_REQUEST = 1;
