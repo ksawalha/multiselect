@@ -13,7 +13,7 @@
         <clobbers target="cordova.plugins.multiselect" />
     </js-module>
     <platform name="android">
-        <config-file target="AndroidManifest.xml" parent="application">
+        <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
         </config-file>
         <source-file src="src/android/MultiSelect.java" target-dir="src/com/example/multiselect" />
