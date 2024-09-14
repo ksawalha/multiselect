@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="multiselect" version="1.0.0">
+    <name>MultiSelect</name>
+    <description>Cordova Plugin for selecting multiple files on Android and iOS.</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova, file, multiselect</keywords>
+    <repo>https://github.com/your-repo/multiselect</repo>
+    <engines>
+        <engine name="cordova-android" version=">=6.0.0" />
+        <engine name="cordova-ios" version=">=6.0.0" />
+    </engines>
+    <js-module src="www/MultiSelect.js" name="MultiSelect">
+        <clobbers target="cordova.plugins.multiselect" />
+    </js-module>
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="application">
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        </config-file>
+        <source-file src="src/android/MultiSelect.java" target-dir="src/com/example/multiselect" />
+    </platform>
+    <platform name="ios">
+        <source-file src="src/ios/MultiSelect.m" framework="true" />
+        <header-file src="src/ios/MultiSelect.h" />
+    </platform>
+</plugin>
