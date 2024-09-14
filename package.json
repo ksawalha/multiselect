@@ -1,0 +1,19 @@
+{
+  "name": "multiselect",
+  "version": "1.0.0",
+  "description": "Cordova plugin for selecting multiple files with different formats on Android and iOS.",
+  "main": "www/MultiSelect.js",
+  "keywords": [
+    "cordova",
+    "file",
+    "multiselect"
+  ],
+  "author": "Your Name",
+  "license": "Apache-2.0",
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  }
+}
