@@ -4,7 +4,6 @@
     <description>Cordova Plugin for selecting multiple files on Android and iOS.</description>
     <license>Apache 2.0</license>
     <keywords>cordova, file, multiselect</keywords>
-    <repo>https://github.com/ksawalha/multiselect.git</repo>
     <engines>
         <engine name="cordova-android" version=">=6.0.0" />
         <engine name="cordova-ios" version=">=6.0.0" />
@@ -24,6 +23,4 @@
         <framework src="UIKit.framework" />
         <framework src="Foundation.framework" />
     </platform>
-    <preference name="UseSwiftLanguageVersion" value="5.9.2" />
-    <preference name="SwiftVersion" value="5.9.2" />
 </plugin>
