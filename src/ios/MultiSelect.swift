@@ -9,12 +9,18 @@ import Cordova
     @objc(chooseFiles:)
     func chooseFiles(command: CDVInvokedUrlCommand) {
         self.callbackId = command.callbackId
+
+        // Check if the user has access to the files
+        if !hasFileAccess() {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "File access is restricted. Please check your settings.")
+            self.commandDelegate.send(pluginResult, callbackId: self.callbackId)
+            return
+        }
         
         // Allowed file types (public.item covers generic files, adjust as needed)
         let types: [String] = [kUTTypeItem as String]
         
-        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.item], asCopy: false)  // Adjusted for Swift 5.9.2
-        
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.item], asCopy: false)
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = true
         
