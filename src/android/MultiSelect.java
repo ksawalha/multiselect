@@ -41,6 +41,15 @@ public class MultiSelect extends CordovaPlugin {
         return false;
     }
 
+    @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
+        if (requestCode == REQUEST_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            openFileChooser();
+        } else {
+            callbackContext.error("Permission denied to read external storage.");
+        }
+    }
+
     private void openFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
@@ -83,11 +92,9 @@ public class MultiSelect extends CordovaPlugin {
     private JSONObject getFileData(Uri uri) throws JSONException {
         JSONObject fileData = new JSONObject();
         String fileName = getFileName(uri);
-        String fullPath = uri.getPath(); // Adjust as needed
         String fileContent = getFileContent(uri);
 
         fileData.put("filename", fileName);
-        fileData.put("fullPath", fullPath);
         fileData.put("fileContent", fileContent); // Base64 encoded file content
 
         return fileData;
