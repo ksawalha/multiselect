@@ -23,4 +23,6 @@
         <framework src="UIKit.framework" />
         <framework src="Foundation.framework" />
     </platform>
+        <preference name="UseSwiftLanguageVersion" value="5.9.2" />
+        <preference name="SwiftVersion" value="5.9.2" />
 </plugin>
