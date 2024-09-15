@@ -41,15 +41,6 @@ public class MultiSelect extends CordovaPlugin {
         return false;
     }
 
-    @Override
-    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
-        if (requestCode == REQUEST_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            openFileChooser();
-        } else {
-            callbackContext.error("Permission denied to read external storage.");
-        }
-    }
-
     private void openFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
@@ -92,10 +83,10 @@ public class MultiSelect extends CordovaPlugin {
     private JSONObject getFileData(Uri uri) throws JSONException {
         JSONObject fileData = new JSONObject();
         String fileName = getFileName(uri);
-        String fileContent = getFileContent(uri);
+        String fullPath = uri.getPath(); // Adjust as needed
 
         fileData.put("filename", fileName);
-        fileData.put("fileContent", fileContent); // Base64 encoded file content
+        fileData.put("fullPath", fullPath);
 
         return fileData;
     }
@@ -113,26 +104,14 @@ public class MultiSelect extends CordovaPlugin {
         return fileName != null ? fileName : uri.getLastPathSegment();
     }
 
-    private String getFileContent(Uri uri) {
-        try {
-            ContentResolver contentResolver = cordova.getActivity().getContentResolver();
-            InputStream inputStream = contentResolver.openInputStream(uri);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int length;
-
-            while ((length = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, length);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openFileChooser();
+            } else {
+                callbackContext.error("Permission denied.");
             }
-
-            inputStream.close();
-            byteArrayOutputStream.close();
-
-            byte[] fileBytes = byteArrayOutputStream.toByteArray();
-            return Base64.encodeToString(fileBytes, Base64.NO_WRAP);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }
